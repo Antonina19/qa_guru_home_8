@@ -17,7 +17,10 @@ public class TestWithFaker {
     String firstName = faker.name().firstName(),
             lastName = faker.name().lastName(),
             email = faker.internet().emailAddress(),
-            curAddress = faker.address().fullAddress();
+            middleName = faker.name().nameWithMiddle(),
+            curAddress = faker.address().fullAddress(),
+            perAddress = faker.address().fullAddress();
+    ;
 
     @BeforeAll
     static void setup() {
@@ -78,6 +81,44 @@ public class TestWithFaker {
         step("Проверяем, что веденный адрес (Current Address) " +
                 "на форме совпадает с полученным результатом", () -> {
             $("tbody").$(byText("Address")).parent().shouldHave(text(curAddress));
+        });
+    }
+
+    @Test
+    void testTextBox() {
+        step("Открываем форму Text Box", () -> {
+            open("/text-box");
+        });
+        step("Прописываем случайный ФИО в поле Full Name", () -> {
+            $("#userName").setValue(firstName + " " + middleName + " " + lastName);
+        });
+        step("Прописываем случайный email в поле Email", () -> {
+            $("#userEmail").setValue(email);
+        });
+        step("Прописываем случайный адрес в поле Current Address", () -> {
+            $("#currentAddress").setValue(curAddress);
+        });
+        step("Прописываем случайный адрес в поле Permanent Address", () -> {
+            $("#permanentAddress").setValue(perAddress);
+        });
+        step("Нажимаем кнопку Submit", () -> {
+            $("#submit").click();
+        });
+
+        step("Проверяем, что веденные Имя, Фамилия и Отчество" +
+                " на форме совпадают с полученным результатом", () -> {
+            $("#output").$("#name").shouldHave(text(firstName + " " + middleName + " " + lastName));
+        });
+        step("Проверяяем, что веденный email на форме совпадает с полученным результатом", () -> {
+            $("#output").$("#email").shouldHave(text(email));
+        });
+        step("Проверяем, что веденный адрес (Current Address) " +
+                "на форме совпадает с полученным результатом", () -> {
+            $("#output").$("#currentAddress").shouldHave(text(curAddress));
+        });
+        step("Проверяем, что веденный адрес (Permanent Address) " +
+                "на форме совпадает с полученным результатом", () -> {
+            $("#output").$("#permanentAddress").shouldHave(text(perAddress));
         });
     }
 

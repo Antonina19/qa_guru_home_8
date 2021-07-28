@@ -20,7 +20,6 @@ public class TestWithFaker {
             middleName = faker.name().nameWithMiddle(),
             curAddress = faker.address().fullAddress(),
             perAddress = faker.address().fullAddress();
-    ;
 
     @BeforeAll
     static void setup() {
@@ -66,7 +65,7 @@ public class TestWithFaker {
         step("Проверяем, что веденные Имя и Фамилия на форме совпадают с полученным результатом", () -> {
             $(".table-responsive").shouldHave(text(firstName + " " + lastName));
         });
-        step("Проверяяем, что веденный email на форме совпадает с полученным результатом", () -> {
+        step("Проверяем, что веденный email на форме совпадает с полученным результатом", () -> {
             $("tbody").$(byText("Student Email")).parent().shouldHave(text(email));
         });
         step("Проверяем, что выбранный пол на форме совпадает с полученным результатом", () -> {
@@ -109,7 +108,7 @@ public class TestWithFaker {
                 " на форме совпадают с полученным результатом", () -> {
             $("#output").$("#name").shouldHave(text(firstName + " " + middleName + " " + lastName));
         });
-        step("Проверяяем, что веденный email на форме совпадает с полученным результатом", () -> {
+        step("Проверяем, что веденный email на форме совпадает с полученным результатом", () -> {
             $("#output").$("#email").shouldHave(text(email));
         });
         step("Проверяем, что веденный адрес (Current Address) " +
